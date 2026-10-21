@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f4ef">
+  <meta name="description" content="家账本：家庭收支明细记录，本地保存，支持成员归属、分类统计与备份导出。">
+  <title>家账本 · 家庭收支明细</title>
+  <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="application-name" content="家账本">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="家账本">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <symbol id="i-overview" viewBox="0 0 24 24">
+      <rect x="3.5" y="3.5" width="7" height="7" rx="2"/>
+      <rect x="13.5" y="3.5" width="7" height="7" rx="2"/>
+      <rect x="3.5" y="13.5" width="7" height="7" rx="2"/>
+      <rect x="13.5" y="13.5" width="7" height="7" rx="2"/>
+    </symbol>
+    <symbol id="i-records" viewBox="0 0 24 24">
+      <path d="M5 4.5h14a1 1 0 0 1 1 1V21l-3-2-2.4 2L12 19l-2.6 2L7 19l-3 2V5.5a1 1 0 0 1 1-1Z"/>
+      <path d="M8.5 9h7M8.5 13h4.5"/>
+    </symbol>
+    <symbol id="i-stats" viewBox="0 0 24 24">
+      <path d="M4 4v16h16"/>
+      <path d="M8 16.5v-4M12 16.5V8M16 16.5v-6"/>
+    </symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24">
+      <path d="M4 7h8M16 7h4M4 17h4M12 17h8"/>
+      <circle cx="14" cy="7" r="2.2"/>
+      <circle cx="10" cy="17" r="2.2"/>
+    </symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24">
+      <path d="M12 5v14M5 12h14"/>
+    </symbol>
+    <symbol id="i-left" viewBox="0 0 24 24">
+      <path d="M14.5 5.5 8 12l6.5 6.5"/>
+    </symbol>
+    <symbol id="i-right" viewBox="0 0 24 24">
+      <path d="M9.5 5.5 16 12l-6.5 6.5"/>
+    </symbol>
+    <symbol id="i-close" viewBox="0 0 24 24">
+      <path d="M6 6l12 12M18 6 6 18"/>
+    </symbol>
+    <symbol id="i-search" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="6.5"/>
+      <path d="M20 20l-3.8-3.8"/>
+    </symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24">
+      <path d="M4.5 7h15M10 11v6M14 11v6M6.5 7l.9 12.2a1 1 0 0 0 1 .8h7.2a1 1 0 0 0 1-.8L17.5 7M9.5 7V4.5h5V7"/>
+    </symbol>
+    <symbol id="i-download" viewBox="0 0 24 24">
+      <path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 20h14"/>
+    </symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24">
+      <path d="M12 16V5M7.5 9.5 12 5l4.5 4.5M5 20h14"/>
+    </symbol>
+    <symbol id="i-file" viewBox="0 0 24 24">
+      <path d="M6 3.5h7l5 5v12H6z"/>
+      <path d="M13 3.5V9h5M9 13h6M9 17h4"/>
+    </symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24">
+      <path d="M4 8a2.5 2.5 0 0 1 2.5-2.5H18A2 2 0 0 1 20 7.5v9a2 2 0 0 1-2 2H6.5A2.5 2.5 0 0 1 4 16V8Z"/>
+      <path d="M4 8.5h13.5"/>
+      <circle cx="16" cy="13" r="1.2" fill="currentColor" stroke="none"/>
+    </symbol>
+  </svg>
+
+  <div class="app">
+    <aside class="sidebar">
+      <a class="brand" href="#/overview" aria-label="家账本首页">
+        <span class="brand-mark"><svg class="icon"><use href="#i-wallet"></use></svg></span>
+        <span class="brand-text"><strong>家账本</strong><small>家庭收支明细</small></span>
+      </a>
+
+      <nav class="nav" aria-label="主导航">
+        <a class="nav-item" href="#/overview" data-route="overview">
+          <svg class="icon" aria-hidden="true"><use href="#i-overview"></use></svg><span>概览</span>
+        </a>
+        <a class="nav-item" href="#/records" data-route="records">
+          <svg class="icon" aria-hidden="true"><use href="#i-records"></use></svg><span>收支明细</span>
+        </a>
+        <a class="nav-item" href="#/stats" data-route="stats">
+          <svg class="icon" aria-hidden="true"><use href="#i-stats"></use></svg><span>统计分析</span>
+        </a>
+        <a class="nav-item" href="#/settings" data-route="settings">
+          <svg class="icon" aria-hidden="true"><use href="#i-settings"></use></svg><span>设置</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="storage-state"><i id="storage-dot"></i><span id="storage-text">数据保存在本机</span></div>
+        <p>数据只保存在当前浏览器，不会上传。</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-title">
+          <h1 id="page-title">概览</h1>
+          <p id="page-sub">家庭收支一目了然</p>
+        </div>
+        <div class="topbar-actions">
+          <div class="month-nav" id="month-nav">
+            <button type="button" class="icon-btn" data-action="month-prev" aria-label="上个月" title="上个月">
+              <svg class="icon" aria-hidden="true"><use href="#i-left"></use></svg>
+            </button>
+            <button type="button" class="month-label" id="month-label" data-action="month-today" title="回到本月">2026年10月</button>
+            <button type="button" class="icon-btn" data-action="month-next" aria-label="下个月" title="下个月">
+              <svg class="icon" aria-hidden="true"><use href="#i-right"></use></svg>
+            </button>
+          </div>
+          <button type="button" class="btn btn-primary" data-action="new-tx" aria-label="记一笔">
+            <svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg><span class="btn-label">记一笔</span>
+          </button>
+        </div>
+      </header>
+
+      <div id="storage-warning" class="warn-banner" hidden>
+        当前浏览器禁用了本地存储，本次修改不会被保存。请更换浏览器或退出无痕模式。
+      </div>
+
+      <section id="view" class="view" aria-live="polite"></section>
+    </main>
+  </div>
+
+  <nav class="tabbar" aria-label="底部导航">
+    <a class="tab-item" href="#/overview" data-route="overview">
+      <svg class="icon" aria-hidden="true"><use href="#i-overview"></use></svg><span>概览</span>
+    </a>
+    <a class="tab-item" href="#/records" data-route="records">
+      <svg class="icon" aria-hidden="true"><use href="#i-records"></use></svg><span>明细</span>
+    </a>
+    <a class="tab-item" href="#/stats" data-route="stats">
+      <svg class="icon" aria-hidden="true"><use href="#i-stats"></use></svg><span>统计</span>
+    </a>
+    <a class="tab-item" href="#/settings" data-route="settings">
+      <svg class="icon" aria-hidden="true"><use href="#i-settings"></use></svg><span>设置</span>
+    </a>
+  </nav>
+
+  <div id="modal-root"></div>
+  <div id="confirm-root"></div>
+  <div id="toast-root" class="toast-root" aria-live="polite" aria-atomic="true"></div>
+
+  <noscript>
+    <div class="noscript">家账本需要启用 JavaScript 才能运行。</div>
+  </noscript>
+
+  <script src="js/store.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
